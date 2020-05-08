@@ -22,7 +22,7 @@ typedef struct
 
 typedef Array *Array_ptr;
 
-Array_ptr get_array(int list[], int length);
+Array_ptr get_array(int_ptr list, int length);
 
 Array_ptr  map(Array_ptr src, Mapper mapper);
 Array_ptr filter(Array_ptr src, Predicate predicate);

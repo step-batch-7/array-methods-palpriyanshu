@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include "test_lib.h"
 #include "../array.h"
 
@@ -65,11 +67,20 @@ void test_for_zero_as_num_value(void){
   free(src);
 }
 
+void test_for_empty_array(void){
+  it("* should give initial value for empty array");
+  int list[] = {};
+  Array_ptr src = get_array(list, 0);
+  assert_int_equal(reduce(src, 1, multiply), 1);
+  free(src);
+};
+
 void test_reduce(){
   describe("# REDUCE");
   test_for_positive_nums();
   test_for_negative_nums();
   test_for_zero_as_num_value();
+  test_for_empty_array();
 };
 
 void test_for_increment_values(){
@@ -130,8 +141,19 @@ void test_for_is_even(void){
   free(filtered_src);
 }
 
+void test_for_no_true(void){
+  it("* should give empty array when no value is true");
+  int list[4] = {1,7,3,5}; 
+  Array_ptr src = get_array(list , 4);
+  Array_ptr filtered_src = filter(src, is_even);
+  assert_int_equal(filtered_src->length, 0);
+  free(src);
+  free(filtered_src);
+}
+
 void test_filter(){
   describe("# FILTER");
   test_for_is_odd();
   test_for_is_even();
+  test_for_no_true();
 };

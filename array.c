@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "array.h"
 
-Array_ptr get_array(int list[], int length){
+Array_ptr get_array(int_ptr list, int length){
   Array_ptr src = malloc(sizeof(Array_ptr));
   src->length = length;
   src->array = malloc(sizeof(int) * length);
@@ -13,6 +13,9 @@ Array_ptr get_array(int list[], int length){
 };
 
 int reduce(Array_ptr src, int init, Reducer reducer){
+  if(src->length == 0){
+    return init;
+  }
   for (int index = 0; index < src->length; index++)
   {
     init = (*reducer)(init, src->array[index]);
