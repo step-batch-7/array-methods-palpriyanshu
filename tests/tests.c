@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 #include "test_lib.h"
 #include "../array.h"
 
@@ -35,11 +34,11 @@ void test_get_array(void){
   it("* should return a pointer of structure having an array and its length");
   int list[4] = {1,2,3,4}; 
   Array_ptr src = get_array(list , 4);
-  assert_int_equal(src->length, 4);
-  assert_int_equal(src->array[0], 1);
-  assert_int_equal(src->array[1], 2);
-  assert_int_equal(src->array[2], 3);
-  assert_int_equal(src->array[3], 4);
+  assert_equal(src->length, 4);
+  assert_equal(src->array[0], 1);
+  assert_equal(src->array[1], 2);
+  assert_equal(src->array[2], 3);
+  assert_equal(src->array[3], 4);
   free(src);
 }
 
@@ -47,7 +46,7 @@ void test_for_positive_nums(void){
   it("* should give product of positive numbers");
   int list[4] = {1,2,3,4}; 
   Array_ptr src = get_array(list, 4);
-  assert_int_equal(reduce(src, 1, multiply), 24);
+  assert_equal(reduce(src, 1, multiply), 24);
   free(src);
 }
 
@@ -55,7 +54,7 @@ void test_for_negative_nums(void){
   it("* should give product of negative numbers");
   int list[5] = {-1,-2,-3,-4,-5}; 
   Array_ptr src = get_array(list, 5);
-  assert_int_equal(reduce(src, 1, multiply), -120);
+  assert_equal(reduce(src, 1, multiply), -120);
   free(src);
 }
 
@@ -63,7 +62,7 @@ void test_for_zero_as_num_value(void){
   it("* should give zero when any number is zero");
   int list[4] = {-1, 0, -3, -4}; 
   Array_ptr src = get_array(list, 4);
-  assert_int_equal(reduce(src, 1, multiply), 0);
+  assert_equal(reduce(src, 1, multiply), 0);
   free(src);
 }
 
@@ -71,7 +70,7 @@ void test_for_empty_array(void){
   it("* should give initial value for empty array");
   int list[] = {};
   Array_ptr src = get_array(list, 0);
-  assert_int_equal(reduce(src, 1, multiply), 1);
+  assert_equal(reduce(src, 1, multiply), 1);
   free(src);
 };
 
@@ -88,11 +87,11 @@ void test_for_increment_values(){
   int list[4] = {1,2,3,4}; 
   Array_ptr src = get_array(list , 4);
   Array_ptr mapped_src = map(src, increment);
-  assert_int_equal(mapped_src->length, src->length);
-  assert_int_equal(mapped_src->array[0], 2);
-  assert_int_equal(mapped_src->array[1], 3);
-  assert_int_equal(mapped_src->array[2], 4);
-  assert_int_equal(mapped_src->array[3], 5);
+  assert_equal(mapped_src->length, src->length);
+  assert_equal(mapped_src->array[0], 2);
+  assert_equal(mapped_src->array[1], 3);
+  assert_equal(mapped_src->array[2], 4);
+  assert_equal(mapped_src->array[3], 5);
   free(src);
   free(mapped_src);
 }
@@ -102,11 +101,11 @@ void test_for_square_values(){
   int list[4] = {1,2,3,4}; 
   Array_ptr src = get_array(list , 4);
   Array_ptr mapped_src = map(src, square);
-  assert_int_equal(mapped_src->length, src->length);
-  assert_int_equal(mapped_src->array[0], 1);
-  assert_int_equal(mapped_src->array[1], 4);
-  assert_int_equal(mapped_src->array[2], 9);
-  assert_int_equal(mapped_src->array[3], 16);
+  assert_equal(mapped_src->length, src->length);
+  assert_equal(mapped_src->array[0], 1);
+  assert_equal(mapped_src->array[1], 4);
+  assert_equal(mapped_src->array[2], 9);
+  assert_equal(mapped_src->array[3], 16);
   free(src);
   free(mapped_src);
 }
@@ -122,9 +121,9 @@ void test_for_is_odd(void){
   int list[4] = {1,2,3,4}; 
   Array_ptr src = get_array(list , 4);
   Array_ptr filtered_src = filter(src, is_odd);
-  assert_int_equal(filtered_src->length, 2);
-  assert_int_equal(filtered_src->array[0], 1);
-  assert_int_equal(filtered_src->array[1], 3);
+  assert_equal(filtered_src->length, 2);
+  assert_equal(filtered_src->array[0], 1);
+  assert_equal(filtered_src->array[1], 3);
   free(src);
   free(filtered_src);
 }
@@ -134,9 +133,9 @@ void test_for_is_even(void){
   int list[4] = {1,2,3,4}; 
   Array_ptr src = get_array(list , 4);
   Array_ptr filtered_src = filter(src, is_even);
-  assert_int_equal(filtered_src->length, 2);
-  assert_int_equal(filtered_src->array[0], 2);
-  assert_int_equal(filtered_src->array[1], 4);
+  assert_equal(filtered_src->length, 2);
+  assert_equal(filtered_src->array[0], 2);
+  assert_equal(filtered_src->array[1], 4);
   free(src);
   free(filtered_src);
 }
@@ -146,7 +145,7 @@ void test_for_no_true(void){
   int list[4] = {1,7,3,5}; 
   Array_ptr src = get_array(list , 4);
   Array_ptr filtered_src = filter(src, is_even);
-  assert_int_equal(filtered_src->length, 0);
+  assert_equal(filtered_src->length, 0);
   free(src);
   free(filtered_src);
 }
