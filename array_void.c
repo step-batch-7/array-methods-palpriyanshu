@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include "array_void.h"
 
-Void_ptr copy_int(Object numbers, int index){
+Object copy_int(Object numbers, int index){
   int_ptr element = malloc(sizeof(int));
   *element = ((int_ptr)numbers)[index];
   return element;
 }
 
-Void_ptr copy_char(Object letters, int index){
+Object copy_char(Object letters, int index){
   char_ptr element = malloc(sizeof(char));
   *element = ((char_ptr)letters)[index];
   return element;
@@ -36,4 +36,13 @@ Object reduce_void(ArrayVoid_ptr src, Object init, ReducerVoid reducer){
     init = (*reducer)(init, src->array[index]);
   }
   return init;
+};
+
+ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper){
+  ArrayVoid_ptr mapped_src = get_array_void(src->array, src->length);
+  for (int index = 0; index < src->length; index++)
+  {
+    mapped_src->array[index] = (*mapper)(src->array[index]);
+  }
+  return mapped_src;
 };
