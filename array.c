@@ -13,9 +13,6 @@ Array_ptr get_array(int_ptr list, int length){
 };
 
 int reduce(Array_ptr src, int init, Reducer reducer){
-  if(src->length == 0){
-    return init;
-  }
   for (int index = 0; index < src->length; index++)
   {
     init = (*reducer)(init, src->array[index]);
