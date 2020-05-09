@@ -12,6 +12,9 @@ void runTests(void){
   test_reduce();
   test_map();
   test_filter();
+  test_copy_int();
+  test_copy_char();
+  test_create_array_void();
   test_get_array_void();
 }
 
