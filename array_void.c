@@ -24,7 +24,7 @@ Object_ptr create_array_void(Object list, int length, Copier_void copier){
 };
 
 ArrayVoid_ptr get_array_void(Object_ptr src, int length){
-  ArrayVoid_ptr newArray = malloc(sizeof(ArrayVoid_ptr));
+  ArrayVoid_ptr newArray = malloc(sizeof(ArrayVoid));
   newArray->length = length;
   newArray->array = src;
   return newArray;
@@ -60,4 +60,29 @@ ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate){
   } 
   ArrayVoid_ptr filtered_src = get_array_void(temp_array, count);
   return filtered_src;
+};
+
+void display_int_void(Object element){
+  printf("%d ", *(int_ptr)element);
+}
+
+void display_char_void(Object element){
+  printf("%c ", *(char_ptr)element);
+}
+
+void display_array_void(ArrayVoid_ptr src, Displayer displayer){
+  for (int index = 0; index < src->length; index++)
+  {
+    (*displayer)(src->array[index]);
+  }
+  printf("\n");
+};
+
+void clear_array_void(ArrayVoid_ptr src){
+  for (int index = 0; index < src->length; index++)
+  {
+    free(src->array[index]);
+  }
+  free(src->array);
+  free(src);
 };

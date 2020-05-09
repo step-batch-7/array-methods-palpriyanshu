@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 #include "test_lib.h"
 #include "../array_void.h"
 
@@ -90,8 +89,7 @@ void test_for_int_array(void){
   assert_void_int_equal(src->array[1], numbers+1);
   assert_void_int_equal(src->array[2], numbers+2);
   assert_void_int_equal(src->array[3], numbers+3);
-  free(src);
-  free(list);
+  clear_array_void(src);
 }
 
 void test_for_char_array(void){
@@ -104,8 +102,7 @@ void test_for_char_array(void){
   assert_void_char_equal(src->array[1], letters+1);
   assert_void_char_equal(src->array[2], letters+2);
   assert_void_char_equal(src->array[3], letters+3);
-  free(src);
-  free(list);
+  clear_array_void(src);
 }
 
 void test_get_array_void(void){
@@ -122,8 +119,7 @@ void test_for_empty_array_void(void){
   ArrayVoid_ptr src = get_array_void(list , 0);
   Object sum = reduce_void(src, &init, sum_void);
   assert_equal(*(int_ptr)sum, 1);
-  free(src);
-  free(list);
+  clear_array_void(src);
 }
 
 void test_for_reducing_int_array(void){
@@ -134,8 +130,7 @@ void test_for_reducing_int_array(void){
   ArrayVoid_ptr src = get_array_void(list , 4);
   Object sum = reduce_void(src, &init, sum_void);
   assert_equal(*(int_ptr)sum, 10);
-  free(src);
-  free(list);
+  clear_array_void(src);
 }
 
 void test_reduce_void(void){
@@ -155,9 +150,7 @@ void test_for_increment_numbers(void){
   assert_equal(*(int_ptr)(mapped_src->array[1]), 3);
   assert_equal(*(int_ptr)(mapped_src->array[2]), 4);
   assert_equal(*(int_ptr)(mapped_src->array[3]), 5);
-  free(src);
-  free(mapped_src);
-  free(list);
+  clear_array_void(mapped_src);
 }
 
 void test_for_to_lower_case(void){
@@ -171,9 +164,7 @@ void test_for_to_lower_case(void){
   assert_equal(*(char_ptr)(mapped_src->array[1]), 'k');
   assert_equal(*(char_ptr)(mapped_src->array[2]), 'm');
   assert_equal(*(char_ptr)(mapped_src->array[3]), 'z');
-  free(src);
-  free(mapped_src);
-  free(list);
+  clear_array_void(mapped_src);
 };
 
 void test_map_void(void){
@@ -189,9 +180,7 @@ void test_for_all_value_false(void){
   ArrayVoid_ptr src = get_array_void(list , 4);
   ArrayVoid_ptr filtered_src = filter_void(src, is_even_void);
   assert_equal(filtered_src->length, 0);
-  free(src);
-  free(filtered_src);
-  free(list);
+  clear_array_void(src);
 };
 
 void test_for_all_value_true(void){
@@ -205,9 +194,7 @@ void test_for_all_value_true(void){
   assert_equal(*(int_ptr)(filtered_src->array[1]), 4);
   assert_equal(*(int_ptr)(filtered_src->array[2]), 6);
   assert_equal(*(int_ptr)(filtered_src->array[3]), 8);
-  free(src);
-  free(filtered_src);
-  free(list);
+  clear_array_void(src);
 };
 
 void test_for_is_even_present(void){
@@ -219,9 +206,7 @@ void test_for_is_even_present(void){
   assert_equal(filtered_src->length, 2);
   assert_equal(*(int_ptr)(filtered_src->array[0]), 4);
   assert_equal(*(int_ptr)(filtered_src->array[1]), 8);
-  free(src);
-  free(filtered_src);
-  free(list);
+  clear_array_void(src);
 };
 
 void test_for_is_vowel(void){
@@ -233,9 +218,7 @@ void test_for_is_vowel(void){
   assert_equal(filtered_src->length, 2);
   assert_equal(*(char_ptr)(filtered_src->array[0]), 'A');
   assert_equal(*(char_ptr)(filtered_src->array[1]), 'i');
-  free(src);
-  free(filtered_src);
-  free(list);
+  clear_array_void(src);
 };
 
 void test_filter_void(void){
