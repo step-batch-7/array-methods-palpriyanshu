@@ -23,6 +23,17 @@ Object to_lower_case_void(Object letter){
   return lower_cased;
 }
 
+Bool is_even_void(Object num){
+  return *(int_ptr)num % 2 == 0;
+}
+
+Bool is_vowel_void(Object letter){
+  char alphabet = *(char_ptr)letter;
+  Bool lower_case_vowels = alphabet == 'a' || alphabet == 'e' || alphabet == 'i' || alphabet == 'o' || alphabet == 'u';
+  Bool upper_case_vowels = alphabet == 'A' || alphabet == 'E' || alphabet == 'I' || alphabet == 'O' || alphabet == 'U';
+  return lower_case_vowels || upper_case_vowels;
+}; 
+
 void test_copy_int(void){
   describe("# COPY_INT");
   it("* should copy int value");
@@ -169,4 +180,68 @@ void test_map_void(void){
   describe("# MAP_VOID");
   test_for_increment_numbers();
   test_for_to_lower_case();
+}
+
+void test_for_all_value_false(void){
+  it("* should give pointer to empty Void array when all values are false");
+  int numbers[4] = {1,7,3,9};
+  Object_ptr list = create_array_void(numbers, 4, copy_int);
+  ArrayVoid_ptr src = get_array_void(list , 4);
+  ArrayVoid_ptr filtered_src = filter_void(src, is_even_void);
+  assert_equal(filtered_src->length, 0);
+  free(src);
+  free(filtered_src);
+  free(list);
+};
+
+void test_for_all_value_true(void){
+  it("* should give pointer to same Void array when all values are true");
+  int numbers[4] = {2,4,6,8};
+  Object_ptr list = create_array_void(numbers, 4, copy_int);
+  ArrayVoid_ptr src = get_array_void(list , 4);
+  ArrayVoid_ptr filtered_src = filter_void(src, is_even_void);
+  assert_equal(filtered_src->length, 4);
+  assert_equal(*(int_ptr)(filtered_src->array[0]), 2);
+  assert_equal(*(int_ptr)(filtered_src->array[1]), 4);
+  assert_equal(*(int_ptr)(filtered_src->array[2]), 6);
+  assert_equal(*(int_ptr)(filtered_src->array[3]), 8);
+  free(src);
+  free(filtered_src);
+  free(list);
+};
+
+void test_for_is_even_present(void){
+  it("* should filter even numbers");
+  int numbers[4] = {1,4,7,8};
+  Object_ptr list = create_array_void(numbers, 4, copy_int);
+  ArrayVoid_ptr src = get_array_void(list , 4);
+  ArrayVoid_ptr filtered_src = filter_void(src, is_even_void);
+  assert_equal(filtered_src->length, 2);
+  assert_equal(*(int_ptr)(filtered_src->array[0]), 4);
+  assert_equal(*(int_ptr)(filtered_src->array[1]), 8);
+  free(src);
+  free(filtered_src);
+  free(list);
+};
+
+void test_for_is_vowel(void){
+  it("* should filter vowels");
+  char letters[4] = {'A','C','d','i'};
+  Object_ptr list = create_array_void(letters, 4, copy_char);
+  ArrayVoid_ptr src = get_array_void(list , 4);
+  ArrayVoid_ptr filtered_src = filter_void(src, is_vowel_void);
+  assert_equal(filtered_src->length, 2);
+  assert_equal(*(char_ptr)(filtered_src->array[0]), 'A');
+  assert_equal(*(char_ptr)(filtered_src->array[1]), 'i');
+  free(src);
+  free(filtered_src);
+  free(list);
+};
+
+void test_filter_void(void){
+  describe("# FILTER_VOID");
+  test_for_all_value_false();
+  test_for_all_value_true();
+  test_for_is_even_present();
+  test_for_is_vowel();
 }

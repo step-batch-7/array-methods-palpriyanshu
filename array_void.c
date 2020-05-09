@@ -46,3 +46,18 @@ ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper){
   }
   return mapped_src;
 };
+
+ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate){
+  Object temp_array[src->length];
+  int count = 0;
+  for (int index = 0; index < src->length; index++)
+  {
+    Bool is_true =  (*predicate)(src->array[index]);
+    if(is_true){
+      temp_array[count] = src->array[index];
+      count++;
+    }
+  } 
+  ArrayVoid_ptr filtered_src = get_array_void(temp_array, count);
+  return filtered_src;
+};

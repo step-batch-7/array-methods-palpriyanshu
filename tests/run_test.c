@@ -18,6 +18,7 @@ void runTests(void){
   test_get_array_void();
   test_reduce_void();
   test_map_void();
+  test_filter_void();
 }
 
 int main() {
