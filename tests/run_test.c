@@ -16,6 +16,7 @@ void runTests(void){
   test_copy_char();
   test_create_array_void();
   test_get_array_void();
+  test_reduce_void();
 }
 
 int main() {

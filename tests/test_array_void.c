@@ -4,6 +4,12 @@
 #include "test_lib.h"
 #include "../array_void.h"
 
+Object sum_void(Object num1, Object num2){
+  int_ptr sum = malloc(sizeof(int));
+  *sum = *(int_ptr)num1 + *(int_ptr)num2;
+  return sum;
+};
+
 void test_copy_int(void){
   describe("# COPY_INT");
   it("* should copy int value");
@@ -75,3 +81,31 @@ void test_get_array_void(void){
   test_for_int_array();
   test_for_char_array();
 };
+
+void test_for_empty_array_void(void){
+  it("* should return pointer to initial value for empty array");
+  int numbers[] = {};
+  int init = 1;
+  Object_ptr list = create_array_void(numbers, 0, copy_int);
+  ArrayVoid_ptr src = get_array_void(list , 0);
+  Object sum = reduce_void(src, &init, sum_void);
+  assert_equal(*(int_ptr)sum, 1);
+  free(src);
+}
+
+void test_for_reducing_int_array(void){
+  it("* should return pointer to sum of numbers");
+  int numbers[4] = {1,2,3,4};
+  int init = 0;
+  Object_ptr list = create_array_void(numbers, 4, copy_int);
+  ArrayVoid_ptr src = get_array_void(list , 4);
+  Object sum = reduce_void(src, &init, sum_void);
+  assert_equal(*(int_ptr)sum, 10);
+  free(src);
+}
+
+void test_reduce_void(void){
+  describe("# REDUCE_VOID");
+  test_for_empty_array_void();
+  test_for_reducing_int_array();
+}

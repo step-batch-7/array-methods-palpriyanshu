@@ -29,3 +29,11 @@ ArrayVoid_ptr get_array_void(Object_ptr src, int length){
   newArray->array = src;
   return newArray;
 };
+
+Object reduce_void(ArrayVoid_ptr src, Object init, ReducerVoid reducer){
+  for (int index = 0; index < src->length; index++)
+  {
+    init = (*reducer)(init, src->array[index]);
+  }
+  return init;
+};
